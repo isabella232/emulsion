@@ -98,19 +98,7 @@ pub fn texture_from_image(
 }
 
 pub fn is_file_supported(filename: &Path) -> bool {
-	if let Some(ext) = filename.extension() {
-		if let Some(ext) = ext.to_str() {
-			let ext = ext.to_lowercase();
-			match ext.as_str() {
-				"jpg" | "jpeg" | "png" | "gif" | "webp" | "tif" | "tiff" | "tga" | "bmp"
-				| "ico" | "hdr" | "pbm" | "pam" | "ppm" | "pgm" => {
-					return true;
-				}
-				_ => (),
-			}
-		}
-	}
-	false
+    ImageFormat::from_path(filename).is_ok()
 }
 
 pub struct LoadRequest {
